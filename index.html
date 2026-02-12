@@ -1,1 +1,2238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Brief | Element Building Consultancy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-blue: #111b31;
+            --charcoal: #272726;
+            --egg-blue: #8bbfc2;
+            --egg-blue-light: #a8d0d3;
+            --egg-blue-muted: #c5dfe1;
+            --red: #e84e1b;
+            --red-light: #f0795a;
+            --buff: #d6d4c5;
+            --stone: #dfe0e2;
 
+            --black: #0f0f0f;
+            --grey-900: #1a1a1a;
+            --grey-800: #262626;
+            --grey-700: #404040;
+            --grey-600: #525252;
+            --grey-500: #737373;
+            --grey-400: #a3a3a3;
+            --grey-300: #d4d4d4;
+            --grey-200: #e5e5e5;
+            --grey-100: #f5f5f5;
+            --grey-50: #fafafa;
+            --white: #ffffff;
+
+            --shadow-xs: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.08), 0 4px 6px rgba(0,0,0,0.05);
+            --shadow-xl: 0 20px 25px rgba(0,0,0,0.1), 0 10px 10px rgba(0,0,0,0.04);
+
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            background: var(--stone);
+            color: var(--grey-700);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        /* Cover */
+        .cover {
+            background: var(--dark-blue);
+            color: var(--white);
+            padding: 6rem 2rem;
+            text-align: center;
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(139,191,194,0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(232,78,27,0.04) 0%, transparent 40%);
+        }
+
+        .cover-content {
+            position: relative;
+            max-width: 700px;
+        }
+
+        .cover-badge {
+            display: inline-block;
+            background: rgba(139,191,194,0.12);
+            border: 1px solid rgba(139,191,194,0.25);
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            color: var(--egg-blue);
+        }
+
+        .cover h1 {
+            font-size: clamp(2.25rem, 5vw, 3.5rem);
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+            letter-spacing: -0.03em;
+        }
+
+        .cover h1 span {
+            color: var(--egg-blue);
+        }
+
+        .cover-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 3rem;
+        }
+
+        .cover-meta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(139,191,194,0.15);
+        }
+
+        .meta-item {
+            text-align: center;
+        }
+
+        .meta-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 0.25rem;
+        }
+
+        .meta-value {
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .meta-value a {
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: var(--white);
+            margin: -3rem auto 3rem;
+            max-width: 900px;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            padding: 2.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .toc h2 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .toc-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.6rem 0.75rem;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .toc-item:hover {
+            background: var(--stone);
+        }
+
+        .toc-num {
+            width: 24px;
+            height: 24px;
+            background: var(--stone);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--grey-600);
+            flex-shrink: 0;
+        }
+
+        .toc-item:hover .toc-num {
+            background: var(--dark-blue);
+            color: var(--white);
+        }
+
+        .toc-text {
+            font-size: 0.85rem;
+            color: var(--grey-600);
+        }
+
+        /* Section */
+        .section {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            padding: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-num {
+            width: 36px;
+            height: 36px;
+            background: var(--dark-blue);
+            color: var(--white);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .section-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            letter-spacing: -0.02em;
+        }
+
+        .section p {
+            color: var(--grey-600);
+            margin-bottom: 1rem;
+        }
+
+        .section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: var(--grey-50);
+            border: 1px solid var(--grey-200);
+            border-radius: var(--radius-md);
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .info-box h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-box p, .info-box li {
+            font-size: 0.9rem;
+            color: var(--grey-600);
+            margin: 0;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, #0d1526 100%);
+            color: var(--white);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .highlight-box p, .highlight-box li {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.65);
+            margin: 0;
+        }
+
+        .highlight-box ul {
+            list-style: none;
+            margin-top: 0.75rem;
+        }
+
+        .highlight-box li {
+            padding: 0.35rem 0;
+            padding-left: 1.25rem;
+            position: relative;
+        }
+
+        .highlight-box li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--egg-blue);
+        }
+
+        /* Two Column */
+        .two-col {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        @media (max-width: 700px) {
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .col-card {
+            background: var(--grey-50);
+            border: 1px solid var(--grey-200);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+        }
+
+        .col-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--grey-500);
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--grey-200);
+        }
+
+        .item {
+            padding: 0.85rem 0;
+            border-bottom: 1px solid var(--grey-200);
+        }
+
+        .item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .item:first-of-type {
+            padding-top: 0;
+        }
+
+        .item h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+            margin-bottom: 0.2rem;
+        }
+
+        .item p {
+            font-size: 0.85rem;
+            color: var(--grey-500);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Card Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .card {
+            background: var(--grey-50);
+            border: 1px solid var(--grey-200);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            transition: all 0.25s ease;
+        }
+
+        .card:hover {
+            border-color: var(--grey-300);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .card h5 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card p {
+            font-size: 0.85rem;
+            color: var(--grey-600);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* Scope Card */
+        .scope-card {
+            background: var(--grey-50);
+            border: 1px solid var(--grey-200);
+            border-radius: var(--radius-lg);
+            padding: 1.75rem;
+            margin-bottom: 1rem;
+            transition: all 0.25s ease;
+        }
+
+        .scope-card:hover {
+            border-color: var(--grey-300);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .scope-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .scope-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .scope-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--dark-blue);
+            color: var(--white);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .scope-icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: var(--white);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .scope-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 0.2rem;
+        }
+
+        .scope-subtitle {
+            font-size: 0.85rem;
+            color: var(--grey-500);
+        }
+
+        .deliverables {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 0.6rem;
+        }
+
+        .deliverable {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            padding: 0.65rem 0.85rem;
+            background: var(--white);
+            border: 1px solid var(--grey-200);
+            border-radius: var(--radius-sm);
+            font-size: 0.82rem;
+            color: var(--grey-600);
+            transition: all 0.2s ease;
+        }
+
+        .deliverable:hover {
+            border-color: var(--grey-300);
+        }
+
+        .deliverable-check {
+            width: 16px;
+            height: 16px;
+            background: var(--dark-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .deliverable-check svg {
+            width: 9px;
+            height: 9px;
+            stroke: var(--white);
+            stroke-width: 3;
+        }
+
+        .deliverable strong {
+            color: var(--dark-blue);
+            font-weight: 600;
+        }
+
+        /* Inspiration */
+        .inspiration-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        @media (max-width: 700px) {
+            .inspiration-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .inspiration-card {
+            background: var(--grey-50);
+            border: 1px solid var(--grey-200);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: all 0.25s ease;
+        }
+
+        .inspiration-card:hover {
+            border-color: var(--grey-300);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .inspiration-header {
+            background: var(--dark-blue);
+            color: var(--white);
+            padding: 1rem 1.25rem;
+        }
+
+        .inspiration-header h5 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 0.15rem;
+        }
+
+        .inspiration-url {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .inspiration-body {
+            padding: 1.25rem;
+        }
+
+        .inspiration-body p {
+            font-size: 0.85rem;
+            color: var(--grey-600);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .inspiration-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            background: var(--grey-200);
+            padding: 0.25rem 0.6rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--grey-600);
+        }
+
+        .tag--accent {
+            background: rgba(139,191,194,0.15);
+            color: #4a8a8f;
+        }
+
+        .inspiration-link {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+            text-decoration: none;
+        }
+
+        .inspiration-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        @media (max-width: 600px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature-card {
+            background: var(--grey-50);
+            border: 1px solid var(--grey-200);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+        }
+
+        .feature-card h4 {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--grey-500);
+            margin-bottom: 1rem;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            padding: 0.45rem 0;
+            font-size: 0.85rem;
+            color: var(--grey-600);
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            color: var(--dark-blue);
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        /* Values Table */
+        .values-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+
+        .values-table th {
+            background: var(--dark-blue);
+            color: var(--white);
+            padding: 0.85rem 1.25rem;
+            text-align: left;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .values-table th:last-child {
+            text-align: center;
+        }
+
+        .values-table td {
+            padding: 0.85rem 1.25rem;
+            border-bottom: 1px solid var(--grey-200);
+            font-size: 0.85rem;
+        }
+
+        .values-table td:first-child {
+            font-weight: 600;
+            color: var(--dark-blue);
+        }
+
+        .values-table td:last-child {
+            text-align: center;
+            color: var(--grey-500);
+        }
+
+        .values-table tr:nth-child(even) td {
+            background: var(--grey-50);
+        }
+
+        .values-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Q&A */
+        .qa-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin: 1.5rem 0;
+        }
+
+        .qa-item {
+            background: var(--grey-50);
+            border: 1px solid var(--grey-200);
+            border-radius: var(--radius-md);
+            padding: 1.25rem 1.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .qa-item:hover {
+            border-color: var(--grey-300);
+            background: var(--white);
+        }
+
+        .qa-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--grey-500);
+            margin-bottom: 0.4rem;
+        }
+
+        .qa-value {
+            font-size: 0.9rem;
+            color: var(--grey-700);
+            line-height: 1.6;
+        }
+
+        .qa-respondent {
+            display: inline-block;
+            background: var(--dark-blue);
+            color: var(--white);
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.15rem 0.5rem;
+            border-radius: 50px;
+            margin-bottom: 0.4rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .qa-respondent--b {
+            background: var(--charcoal);
+        }
+
+        /* Competitor List */
+        .competitor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.6rem;
+            margin: 1.5rem 0;
+        }
+
+        .competitor-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: var(--grey-50);
+            border: 1px solid var(--grey-200);
+            padding: 0.85rem 1rem;
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--grey-700);
+            transition: all 0.2s ease;
+        }
+
+        .competitor-item:hover {
+            border-color: var(--grey-300);
+            background: var(--white);
+            transform: translateX(4px);
+        }
+
+        .competitor-item::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--dark-blue);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* Note */
+        .note {
+            background: var(--grey-50);
+            border-left: 3px solid var(--egg-blue);
+            padding: 0.85rem 1rem;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            font-size: 0.82rem;
+            color: var(--grey-500);
+            margin-top: 1rem;
+        }
+
+        .note strong {
+            color: var(--grey-700);
+        }
+
+        .note--red {
+            border-left-color: var(--red);
+        }
+
+        /* Personality tags */
+        .personality-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .personality-tag {
+            background: var(--dark-blue);
+            color: var(--white);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .personality-tag--outline {
+            background: transparent;
+            border: 1px solid var(--grey-300);
+            color: var(--grey-600);
+        }
+
+        /* Colour Swatches */
+        .colour-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        @media (max-width: 600px) {
+            .colour-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .colour-card {
+            border: 1px solid var(--grey-200);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .colour-swatch {
+            height: 60px;
+        }
+
+        .colour-info {
+            background: var(--white);
+            padding: 0.85rem;
+        }
+
+        .colour-card h5 {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 0.2rem;
+        }
+
+        .colour-card p {
+            font-size: 0.72rem;
+            color: var(--grey-500);
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        /* Sub-heading helper */
+        .sub-heading {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--grey-500);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Dummy Content Block */
+        .dummy-block {
+            background: var(--grey-50);
+            border: 1px solid var(--grey-200);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 0.75rem 0;
+        }
+
+        .dummy-block h4 {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--egg-blue);
+            background: var(--dark-blue);
+            display: inline-block;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            margin-bottom: 0.75rem;
+        }
+
+        .dummy-heading {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .dummy-body {
+            font-size: 0.88rem;
+            color: var(--grey-600);
+            line-height: 1.7;
+        }
+
+        /* Page Structure Diagram */
+        .page-structure {
+            background: var(--dark-blue);
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+            margin: 1.5rem 0;
+        }
+
+        .page-section-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.7rem 0;
+            border-bottom: 1px solid rgba(139,191,194,0.1);
+        }
+
+        .page-section-row:last-child {
+            border-bottom: none;
+        }
+
+        .page-section-num {
+            width: 28px;
+            height: 28px;
+            background: rgba(139,191,194,0.15);
+            color: var(--egg-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .page-section-name {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--white);
+            flex: 1;
+        }
+
+        .page-section-desc {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.4);
+            flex: 2;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-blue);
+            color: var(--white);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 1.5rem;
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+        }
+
+        .footer-message {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.45);
+            max-width: 550px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+
+        .footer-divider {
+            width: 50px;
+            height: 2px;
+            background: rgba(139,191,194,0.2);
+            margin: 0 auto 2rem;
+        }
+
+        .contact-grid {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .contact-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(139,191,194,0.12);
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-md);
+            min-width: 160px;
+        }
+
+        .contact-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 0.2rem;
+        }
+
+        .contact-value {
+            font-weight: 600;
+        }
+
+        .contact-value a {
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .footer-brand {
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(139,191,194,0.1);
+        }
+
+        .footer-logo {
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .footer-link {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.3);
+        }
+
+        /* Accent divider */
+        .accent-divider {
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--egg-blue) 0%, var(--red) 100%);
+            border-radius: 2px;
+            margin: 2rem 0;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cover -->
+    <div class="cover">
+        <div class="cover-content">
+            <div class="cover-badge">UI Design Brief</div>
+            <h1>Element <span>Building Consultancy</span><br>Website Design</h1>
+            <p class="cover-subtitle">A design brief for the creation of a refined, detail-driven digital presence. Less is more — every element intentional.</p>
+            <div class="cover-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Client</div>
+                    <div class="meta-value">Element BC</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Prepared by</div>
+                    <div class="meta-value">Autara Studio</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Contact</div>
+                    <div class="meta-value"><a href="mailto:matt@autara.studio">matt@autara.studio</a></div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Date</div>
+                    <div class="meta-value">February 2026</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Status</div>
+                    <div class="meta-value">Confidential</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table of Contents -->
+    <div class="container">
+        <div class="toc">
+            <h2>Contents</h2>
+            <div class="toc-grid">
+                <div class="toc-item"><span class="toc-num">01</span><span class="toc-text">Project Overview</span></div>
+                <div class="toc-item"><span class="toc-num">02</span><span class="toc-text">About the Client</span></div>
+                <div class="toc-item"><span class="toc-num">03</span><span class="toc-text">Design Goals & Direction</span></div>
+                <div class="toc-item"><span class="toc-num">04</span><span class="toc-text">Visual Direction & Style</span></div>
+                <div class="toc-item"><span class="toc-num">05</span><span class="toc-text">Colour & Typography</span></div>
+                <div class="toc-item"><span class="toc-num">06</span><span class="toc-text">Page Load & Animations</span></div>
+                <div class="toc-item"><span class="toc-num">07</span><span class="toc-text">Site Structure & Layouts</span></div>
+                <div class="toc-item"><span class="toc-num">08</span><span class="toc-text">Dummy Content & Imagery</span></div>
+                <div class="toc-item"><span class="toc-num">09</span><span class="toc-text">Client Values & Messaging</span></div>
+                <div class="toc-item"><span class="toc-num">10</span><span class="toc-text">Competitor Landscape</span></div>
+                <div class="toc-item"><span class="toc-num">11</span><span class="toc-text">Design Inspiration</span></div>
+                <div class="toc-item"><span class="toc-num">12</span><span class="toc-text">Client Questionnaire</span></div>
+                <div class="toc-item"><span class="toc-num">13</span><span class="toc-text">Deliverables</span></div>
+                <div class="toc-item"><span class="toc-num">14</span><span class="toc-text">Design Guidelines</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 01. Project Overview -->
+    <div class="container">
+        <div class="section">
+            <div class="section-header">
+                <div class="section-num">01</div>
+                <h2 class="section-title">Project Overview</h2>
+            </div>
+            <p>This brief outlines the design direction for the new Element Building Consultancy website. The goal is to create a refined, text-driven digital presence that communicates quiet confidence, precision, and control — reflecting the way Element operates with their clients.</p>
+            <p>The client's number one directive is that <strong>less is more</strong>. While they love their brand guidelines, they feel the full palette and visual system is too busy for the website. The site should strip things back, prioritise clarity, and let the strength of Element's message and work speak for itself.</p>
+
+            <div class="info-box">
+                <h4>⚡ Design Philosophy</h4>
+                <p>Quiet confidence. The site should feel like a perfectly composed space — not loud, not competing for attention, but unmistakably premium. Think of walking into a well-designed building: everything is considered, nothing is accidental.</p>
+            </div>
+
+            <div class="two-col">
+                <div class="col-card">
+                    <div class="col-title">Project Details</div>
+                    <div class="item">
+                        <h4>Client</h4>
+                        <p>Element Building Consultancy</p>
+                    </div>
+                    <div class="item">
+                        <h4>Founded by</h4>
+                        <p>Harry Powell & George Curtis</p>
+                    </div>
+                    <div class="item">
+                        <h4>Industry</h4>
+                        <p>Building Consultancy & Project Management</p>
+                    </div>
+                    <div class="item">
+                        <h4>Project Type</h4>
+                        <p>Website design — Figma mockups (pre-development)</p>
+                    </div>
+                    <div class="item">
+                        <h4>Deadline</h4>
+                        <p>Before client call — Thursday next week</p>
+                    </div>
+                </div>
+                <div class="col-card">
+                    <div class="col-title">Target Audience</div>
+                    <div class="item">
+                        <h4>Primary</h4>
+                        <p>Large funds and family offices in commercial property</p>
+                    </div>
+                    <div class="item">
+                        <h4>Decision Makers</h4>
+                        <p>University-educated, career-driven professionals in roles for 6+ years</p>
+                    </div>
+                    <div class="item">
+                        <h4>Project Range</h4>
+                        <p>£500k – £8m commercial projects</p>
+                    </div>
+                    <div class="item">
+                        <h4>Project Types</h4>
+                        <p>Architecturally curated fit-outs & holistic building refurbishments</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 02. About the Client -->
+    <div class="container">
+        <div class="section">
+            <div class="section-header">
+                <div class="section-num">02</div>
+                <h2 class="section-title">About the Client</h2>
+            </div>
+            <p>Element was founded by Harry Powell and George Curtis to redefine building consultancy through precision, clarity, and absolute attention to detail. After years working with leading UK real estate firms, they saw the industry's complexity slowing progress and obscuring value. Element was created to challenge that.</p>
+            <p>They are adaptive, trusted, and empathetic — blending rigorous expertise with fresh energy. Their ethos: spot issues early, improve systems, deliver smarter, more profitable outcomes. The smallest details shape the strongest results.</p>
+
+            <div class="sub-heading">Brand Personality</div>
+            <div class="personality-tags">
+                <span class="personality-tag">Approachable</span>
+                <span class="personality-tag">Professional</span>
+                <span class="personality-tag">Reliable</span>
+                <span class="personality-tag">Detail-Oriented</span>
+                <span class="personality-tag">Modern</span>
+                <span class="personality-tag">Creative</span>
+                <span class="personality-tag">Innovative</span>
+            </div>
+
+            <div class="sub-heading">Brand Pillars</div>
+            <div class="card-grid">
+                <div class="card">
+                    <h5>Challenging</h5>
+                    <p>Question assumptions and interrogate the detail, pushing for smarter, clearer and more effective solutions.</p>
+                </div>
+                <div class="card">
+                    <h5>Adaptive</h5>
+                    <p>Flex with changing demands, applying precise insight and responsive thinking to keep projects controlled.</p>
+                </div>
+                <div class="card">
+                    <h5>Trusted</h5>
+                    <p>Meticulous approach, transparency and accuracy build long-term confidence and reduce risk.</p>
+                </div>
+                <div class="card">
+                    <h5>Transformative</h5>
+                    <p>Rigorous analysis and innovative methods turn complexity into clarity, driving measurable improvements.</p>
+                </div>
+                <div class="card">
+                    <h5>Empathetic</h5>
+                    <p>Listen deeply and understand context, tailoring the approach to each client's priorities and pressures.</p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4>💡 What Makes Element Different</h4>
+                <p>Their USP in one sentence: <strong style="color: var(--egg-blue);">"Every Detail Managed."</strong></p>
+                <ul>
+                    <li>They get into the detail on projects and take control to deliver certainty of outcomes</li>
+                    <li>Their approach isn't a formulaic step-by-step process — it's a malleable application of technical expertise</li>
+                    <li>They adapt to each client and each project to find a way to deliver the certainty that's required</li>
+                    <li>They can go all the way across the property lifecycle — from pre-acquisition to in-use</li>
+                    <li>Deep understanding of buildings holistically and landlord/tenant matters</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 03. Design Goals & Direction -->
+    <div class="container">
+        <div class="section">
+            <div class="section-header">
+                <div class="section-num">03</div>
+                <h2 class="section-title">Design Goals & Direction</h2>
+            </div>
+            <p>The website needs to do one thing exceptionally well: communicate that Element takes control of the process with a personalised approach, and that working with them means certainty of outcomes. The design should be primarily text-driven, conveying the value of their services through confident, precise language rather than visual noise.</p>
+
+            <div class="scope-card">
+                <div class="scope-header">
+                    <div class="scope-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="scope-title">Primary Design Objectives</h3>
+                        <p class="scope-subtitle">What the design must achieve</p>
+                    </div>
+                </div>
+                <div class="deliverables">
+                    <div class="deliverable">
+                        <div class="deliverable-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span><strong>Less is More</strong> — Restrained, refined, and intentional. Every element earns its place.</span>
+                    </div>
+                    <div class="deliverable">
+                        <div class="deliverable-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span><strong>Text-Driven</strong> — Value is conveyed through language. Typography leads the experience.</span>
+                    </div>
+                    <div class="deliverable">
+                        <div class="deliverable-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span><strong>Quiet Confidence</strong> — Not loud or competing for attention. Unmistakably premium.</span>
+                    </div>
+                    <div class="deliverable">
+                        <div class="deliverable-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span><strong>Personalised Approach</strong> — Users must understand Element adapts to each project and client.</span>
+                    </div>
+                    <div class="deliverable">
+                        <div class="deliverable-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span><strong>Simplify Complexity</strong> — The site itself should embody what Element does: bring clarity to complexity.</span>
+                    </div>
+                    <div class="deliverable">
+                        <div class="deliverable-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span><strong>Subtle Brand Presence</strong> — Hints of brand colour, not full sections. Restraint is key.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="two-col">
+                <div class="highlight-box" style="margin: 0;">
+                    <h4>🎯 Target: "Confident you can deliver"</h4>
+                    <p>A potential client should spend 30 seconds on the site and feel confident that Element can deliver. The design should communicate control, precision, and trustworthiness without saying so explicitly.</p>
+                </div>
+                <div class="highlight-box" style="margin: 0;">
+                    <h4>✨ Target: "Excited to work with you"</h4>
+                    <p>The second respondent wants the site to make people excited to work with Element. The design should feel approachable and human despite the premium finish — not cold or corporate.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 04. Visual Direction & Style -->
+    <div class="container">
+        <div class="section">
+            <div class="section-header">
+                <div class="section-num">04</div>
+                <h2 class="section-title">Visual Direction & Style</h2>
+            </div>
+
+            <div class="personality-tags" style="margin-bottom: 1.5rem;">
+                <span class="personality-tag">Minimal</span>
+                <span class="personality-tag">Refined</span>
+                <span class="personality-tag">Quiet Confidence</span>
+                <span class="personality-tag">Text-Driven</span>
+                <span class="personality-tag">Architectural</span>
+                <span class="personality-tag">Premium</span>
+                <span class="personality-tag--outline personality-tag">Not Busy</span>
+                <span class="personality-tag--outline personality-tag">Not Loud</span>
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h5>📐 Layout</h5>
+                    <p>Clean, generous whitespace. Let content breathe. Interesting grid layouts for the project showcase, but the overall feel should be open and uncluttered. Think architectural — considered proportions and intentional negative space.</p>
+                </div>
+                <div class="card">
+                    <h5>🔤 Typography</h5>
+                    <p>Typography should do the heavy lifting. The brand font is Adelphi PE Variable (use Arial as digital fallback). Headlines should be confident and measured — not aggressive. Body copy should be easy to read with generous line-height.</p>
+                </div>
+                <div class="card">
+                    <h5>🎨 Colour Restraint</h5>
+                    <p>Predominantly neutral with subtle brand colour accents. The only full-colour section should be the page load animation. Throughout the rest of the site, colour is used sparingly — a tinted line, an accent on hover, a soft wash behind a section.</p>
+                </div>
+                <div class="card">
+                    <h5>📸 Photography</h5>
+                    <p>Premium, crisp architectural and interior photography. Depth-of-field for foreground detail. Natural daylight is preferred. Detail close-ups should be woven throughout to reinforce the "attention to detail" message.</p>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>Client directive:</strong> They currently feel the brand guidelines are too busy. The website should be a more restrained expression of the brand — focused on values, key messaging, and their personalised approach. Think of the website as the "quiet" side of the brand.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 05. Colour & Typography -->
+    <div class="container">
+        <div class="section">
+            <div class="section-header">
+                <div class="section-num">05</div>
+                <h2 class="section-title">Colour & Typography Direction</h2>
+            </div>
+            <p>The full Element brand palette is provided below for reference, but the website should use it with significant restraint. The site should feel predominantly light and neutral, with colour used as punctuation rather than foundation.</p>
+
+            <div class="sub-heading">Brand Colour Palette (Full Reference)</div>
+
+            <div class="colour-grid">
+                <div class="colour-card">
+                    <div class="colour-swatch" style="background: #dfe0e2;"></div>
+                    <div class="colour-info">
+                        <h5>Stone</h5>
+                        <p>#dfe0e2</p>
+                    </div>
+                </div>
+                <div class="colour-card">
+                    <div class="colour-swatch" style="background: #d6d4c5;"></div>
+                    <div class="colour-info">
+                        <h5>Buff</h5>
+                        <p>#d6d4c5</p>
+                    </div>
+                </div>
+                <div class="colour-card">
+                    <div class="colour-swatch" style="background: #111b31;"></div>
+                    <div class="colour-info">
+                        <h5>Dark Blue</h5>
+                        <p>#111b31</p>
+                    </div>
+                </div>
+                <div class="colour-card">
+                    <div class="colour-swatch" style="background: #272726;"></div>
+                    <div class="colour-info">
+                        <h5>Charcoal</h5>
+                        <p>#272726</p>
+                    </div>
+                </div>
+                <div class="colour-card">
+                    <div class="colour-swatch" style="background: #8bbfc2;"></div>
+                    <div class="colour-info">
+                        <h5>Egg Blue</h5>
+                        <p>#8bbfc2</p>
+                    </div>
+                </div>
+                <div class="colour-card">
+                    <div class="colour-swatch" style="background: #e84e1b;"></div>
+                    <div class="colour-info">
+                        <h5>Red</h5>
+                        <p>#e84e1b</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sub-heading">Website Colour Usage Direction</div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h5>Primary Background</h5>
+                    <p>White or very light warm neutral (off-white, Stone-tinted). The site should feel light and airy.</p>
+                </div>
+                <div class="card">
+                    <h5>Text</h5>
+                    <p>Dark Blue (#111b31) or Charcoal (#272726) for headings and body. Not pure black — softer and more refined.</p>
+                </div>
+                <div class="card">
+                    <h5>Accent — Subtle Only</h5>
+                    <p>Egg Blue or Red used sparingly: hover states, thin rules, small UI details, the page loader. Never large blocks of colour.</p>
+                </div>
+                <div class="card">
+                    <h5>Footer / Dark Mode</h5>
+                    <p>Dark Blue or Charcoal for the GSAP colour-change footer section. This is the one area where a dark palette takes over.</p>
+                </div>
+            </div>
+
+            <div class="sub-heading">Typography</div>
+            <div class="info-box">
+                <h4>Brand Font: Adelphi PE Variable</h4>
+                <p>Headlines: Adelphi PE Variable in heavier weights. Body copy: Adelphi PE Variable in Thin, Light, or Regular. Digital fallback: Arial. For feature headlines, the brand guidelines specify inserting 5 spaces between words for a distinctive style — consider whether this works on web or whether generous letter-spacing achieves a similar effect.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 06. Page Load & Animations -->
+    <div class="container">
+        <div class="section">
+            <div class="section-header">
+                <div class="section-num">06</div>
+                <h2 class="section-title">Page Load & Animations</h2>
+            </div>
+            <p>The site should have a considered, minimal approach to animation — keeping in line with the "less is more" ethos. Every animation should feel deliberate, never gratuitous. The two key interaction moments are the page load and the footer colour change.</p>
+
+            <div class="scope-card">
+                <div class="scope-header">
+                    <div class="scope-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="scope-title">Page Load Animation</h3>
+                        <p class="scope-subtitle">The one moment where full brand colour is used</p>
+                    </div>
+                </div>
+                <div class="deliverables">
+                    <div class="deliverable">
+                        <div class="deliverable-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span><strong>Full-colour background</strong> — Egg Blue, Dark Blue, or a combination from the brand palette</span>
+                    </div>
+                    <div class="deliverable">
+                        <div class="deliverable-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span><strong>Logo animates in</strong> — Smooth, elegant entrance. Not fast — measured and confident.</span>
+                    </div>
+                    <div class="deliverable">
+                        <div class="deliverable-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span><strong>Tagline reveals</strong> — "Every detail managed." fades or slides in beneath the logo.</span>
+                    </div>
+                    <div class="deliverable">
+                        <div class="deliverable-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span><strong>Reveal transition</strong> — The loader lifts, wipes, or dissolves to reveal the home page content behind.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>Reference:</strong> The client specifically cited basha-franklin.com's loading animation as inspiration — the simplicity of the landing page combined with a smooth, premium animation on entry.
+            </div>
+
+            <div class="scope-card" style="margin-top: 1.5rem;">
+                <div class="scope-header">
+                    <div class="scope-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="scope-title">GSAP Footer Colour Change</h3>
+                        <p class="scope-subtitle">Theme shift on scroll as footer comes into view</p>
+                    </div>
+                </div>
+                <div class="deliverables">
+                    <div class="deliverable">
+                        <div class="deliverable-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span><strong>Scroll-triggered</strong> — As the footer enters the viewport, the body background transitions smoothly</span>
+                    </div>
+                    <div class="deliverable">
+                        <div class="deliverable-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span><strong>Dark palette</strong> — Background shifts to Dark Blue (#111b31) or Charcoal (#272726)</span>
+                    </div>
+                    <div class="deliverable">
+                        <div class="deliverable-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span><strong>Text colour inverts</strong> — All text in the footer area shifts to light/white tones</span>
+                    </div>
+                    <div class="deliverable">
+                        <div class="deliverable-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span><strong>Seamless transition</strong> — The change should feel smooth and considered, not abrupt</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sub-heading">Additional Animation Notes</div>
+            <div class="info-box">
+                <h4>📝 General Approach</h4>
+                <p>Beyond the page load and footer, keep animations minimal: gentle fade-ins on scroll, subtle hover states, and smooth page transitions. Nothing should feel like it's trying to impress — it should feel like the site simply works beautifully. Annotate all intended animations in the Figma file.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 07. Site Structure & Layouts -->
+    <div class="container">
+        <div class="section">
+            <div class="section-header">
+                <div class="section-num">07</div>
+                <h2 class="section-title">Site Structure & Page Layouts</h2>
+            </div>
+            <p>The following pages are required for this phase. Each mockup should be designed at desktop resolution (1440px) with annotation notes on how elements would adapt to mobile.</p>
+
+            <div class="sub-heading">Home Page Structure</div>
+            <div class="page-structure">
+                <div class="page-section-row">
+                    <div class="page-section-num">1</div>
+                    <div class="page-section-name">Page Loader</div>
+                    <div class="page-section-desc">Full-colour brand moment. Logo + tagline animate in, then reveal home content.</div>
+                </div>
+                <div class="page-section-row">
+                    <div class="page-section-num">2</div>
+                    <div class="page-section-name">Hero Section</div>
+                    <div class="page-section-desc">Text-driven. Strong headline conveying the value proposition. Minimal but impactful.</div>
+                </div>
+                <div class="page-section-row">
+                    <div class="page-section-num">3</div>
+                    <div class="page-section-name">About Blurb + Image</div>
+                    <div class="page-section-desc">Short, confident paragraph about Element. Paired with a single premium image.</div>
+                </div>
+                <div class="page-section-row">
+                    <div class="page-section-num">4</div>
+                    <div class="page-section-name">Recent Work Grid</div>
+                    <div class="page-section-desc">8-block grid with an interesting, asymmetric layout. Project imagery + titles.</div>
+                </div>
+                <div class="page-section-row">
+                    <div class="page-section-num">5</div>
+                    <div class="page-section-name">Client Testimonials</div>
+                    <div class="page-section-desc">2–3 rotating quotes from clients. Clean, typographic treatment.</div>
+                </div>
+                <div class="page-section-row">
+                    <div class="page-section-num">6</div>
+                    <div class="page-section-name">Client Logo Carousel</div>
+                    <div class="page-section-desc">Subtle, auto-scrolling marquee of client logos. Greyscale or muted.</div>
+                </div>
+                <div class="page-section-row">
+                    <div class="page-section-num">7</div>
+                    <div class="page-section-name">Footer</div>
+                    <div class="page-section-desc">GSAP colour change to dark. Clean, simple, easy to navigate. Contact details + links.</div>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>Grid note:</strong> The 8-block recent work grid should feel considered and architectural — not a uniform 4×2 grid. Explore asymmetric layouts with varying block sizes (e.g. one large feature block, some medium, some smaller). Each block shows a project image, project name, and possibly the sector/type.
+            </div>
+
+            <div class="sub-heading">Other Pages</div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h5>Project Archive</h5>
+                    <p>Filterable grid of all projects. Clean cards with project imagery, name, sector, and type. Consider a toggle between grid and list view. Filtering by sector and service type should be simple and elegant.</p>
+                </div>
+                <div class="card">
+                    <h5>Single Project Page</h5>
+                    <p>Detailed case study layout. Hero image, project overview text, key details (sector, value, services), image gallery, and potentially a related projects section. Let the photography breathe.</p>
+                </div>
+                <div class="card">
+                    <h5>About Page</h5>
+                    <p>The Element story, their approach, values, and team. Text-driven with supporting photography. Should reinforce the "personalised approach" and "every detail managed" messaging throughout.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 08. Dummy Content & Imagery -->
+    <div class="container">
+        <div class="section">
+            <div class="section-header">
+                <div class="section-num">08</div>
+                <h2 class="section-title">Dummy Content & Image Direction</h2>
+            </div>
+            <p>The following placeholder headings and copy are provided for use in the mockups. These reflect the Element tone of voice: proactive, precise, personable, and bold — without being cocky or informal. Refine as needed but maintain this tone.</p>
+
+            <div class="sub-heading">Hero Section</div>
+            <div class="dummy-block">
+                <h4>Heading</h4>
+                <div class="dummy-heading" style="font-size: 1.6rem;">The smallest details shape the strongest results.</div>
+                <div class="dummy-body" style="margin-top: 0.5rem;">Building consultancy that brings precision, clarity, and control to every stage of your project.</div>
+            </div>
+
+            <div class="dummy-block">
+                <h4>Alternative Heading Options</h4>
+                <div class="dummy-heading">Every detail managed. Every outcome certain.</div>
+                <div class="dummy-body" style="margin-top: 0.75rem; font-style: italic; color: var(--grey-400);">Or consider a more minimal approach with just the strapline and a subtle subtitle:</div>
+                <div class="dummy-heading" style="margin-top: 0.5rem;">Every detail managed.</div>
+            </div>
+
+            <div class="sub-heading">About Blurb (Home Page)</div>
+            <div class="dummy-block">
+                <h4>Heading</h4>
+                <div class="dummy-heading">Precision meets perspective.</div>
+            </div>
+            <div class="dummy-block">
+                <h4>Body Copy</h4>
+                <div class="dummy-body">Element is not your ordinary building consultancy. We embed ourselves in your world — understanding your pressures, your goals, and your way of working. We combine deep technical expertise with a clear understanding of commercial reality to remove unnecessary complexity and bring clarity to every stage of a project. The result: smarter decisions, reduced risk, and outcomes you can rely on.</div>
+            </div>
+
+            <div class="sub-heading">Recent Work Section</div>
+            <div class="dummy-block">
+                <h4>Section Heading</h4>
+                <div class="dummy-heading">Selected projects.</div>
+                <div class="dummy-body" style="margin-top: 0.5rem;">A selection of recent work across commercial fit-out, refurbishment, and strategic advisory.</div>
+            </div>
+
+            <div class="dummy-block">
+                <h4>Sample Project Titles (for grid blocks)</h4>
+                <div class="dummy-body">
+                    1. Aldgate Tower — Cat A+ Office Refurbishment<br>
+                    2. King's Cross Quarter — Workplace Strategy & Fit-Out<br>
+                    3. Mayfair House — Heritage Building Restoration<br>
+                    4. Broadgate Circle — Commercial Cat B Fit-Out<br>
+                    5. Spitalfields Works — Mixed-Use Consultancy<br>
+                    6. Victoria Gate — Landlord Advisory & Repositioning<br>
+                    7. Southbank Place — End-to-End Project Management<br>
+                    8. Old Street Studios — Creative Workspace Delivery
+                </div>
+            </div>
+
+            <div class="sub-heading">Testimonials</div>
+            <div class="dummy-block">
+                <h4>Sample Testimonials</h4>
+                <div class="dummy-body">
+                    <em>"Element brought a level of precision and control to our project that we hadn't experienced with previous consultants. They genuinely understood our commercial pressures and delivered accordingly."</em><br>
+                    <strong style="color: var(--dark-blue); font-size: 0.82rem;">— Head of Real Estate, Major UK Fund</strong>
+                </div>
+                <div class="dummy-body" style="margin-top: 1rem;">
+                    <em>"What sets Element apart is their ability to simplify complexity. They took a challenging refurbishment programme and made it feel manageable from day one."</em><br>
+                    <strong style="color: var(--dark-blue); font-size: 0.82rem;">— Director of Property, Family Office</strong>
+                </div>
+                <div class="dummy-body" style="margin-top: 1rem;">
+                    <em>"We've worked with many project management firms. Element is different — they adapt to how we work, not the other way around. It's a genuine partnership."</em><br>
+                    <strong style="color: var(--dark-blue); font-size: 0.82rem;">— Development Manager, Commercial Property Developer</strong>
+                </div>
+            </div>
+
+            <div class="sub-heading">About Page</div>
+            <div class="dummy-block">
+                <h4>Heading</h4>
+                <div class="dummy-heading">Built on precision. Driven by partnership.</div>
+            </div>
+            <div class="dummy-block">
+                <h4>Intro Copy</h4>
+                <div class="dummy-body">Element was founded by Harry Powell and George Curtis with a clear ambition: to raise the standard of building consultancy. After years working with leading UK real estate firms, they saw an industry where complexity too often slowed progress and obscured value. Element was created to challenge that — to bring clarity, control, and an uncompromising attention to detail to every project.</div>
+            </div>
+            <div class="dummy-block">
+                <h4>Approach Copy</h4>
+                <div class="dummy-body">Our approach isn't a rigid framework. It's a malleable application of technical expertise, shaped around each client and each project. We don't prescribe a one-size-fits-all process — we listen, we understand your world, and we find the right way to deliver the certainty you need. From pre-acquisition through to in-use, we manage every detail so you don't have to.</div>
+            </div>
+
+            <div class="sub-heading">Single Project Page</div>
+            <div class="dummy-block">
+                <h4>Project Overview Copy</h4>
+                <div class="dummy-body">Element was appointed to deliver full project management and building consultancy services for this comprehensive Cat A+ refurbishment of a landmark commercial building. Working closely with the client's internal team, we managed the programme from initial feasibility through to practical completion — ensuring every detail was considered and every output met the highest standard of quality and precision.</div>
+            </div>
+
+            <div class="accent-divider"></div>
+
+            <div class="sub-heading">Image Direction & Suggestions</div>
+            <div class="info-box">
+                <h4>📸 Photography for Mockups</h4>
+                <p>Use high-quality architectural and commercial interior photography as placeholders. The brand guidelines specify: premium and crisp, natural daylight, depth-of-field for detail, enhanced colour. Source placeholder images from Unsplash or similar that reflect:</p>
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h5>Hero / About</h5>
+                    <p>Premium commercial interiors — boardroom, modern workspace lobby, or a beautifully detailed architectural feature. Clean, bright, and considered.</p>
+                </div>
+                <div class="card">
+                    <h5>Project Grid</h5>
+                    <p>Mix of wide interior shots (reception areas, open-plan offices, meeting rooms) and close-up detail shots (material textures, joinery, furniture details, lighting).</p>
+                </div>
+                <div class="card">
+                    <h5>Case Study</h5>
+                    <p>Large hero shot of a completed space, followed by a mix of wider room shots and architectural detail close-ups. At least one detail photograph per case study.</p>
+                </div>
+                <div class="card">
+                    <h5>About Page</h5>
+                    <p>One professional team/portrait photo. Remaining imagery should be workspace and project photography. Consider a candid on-site image to show the human side.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 09. Client Values & Messaging -->
+    <div class="container">
+        <div class="section">
+            <div class="section-header">
+                <div class="section-num">09</div>
+                <h2 class="section-title">Client Values & Messaging Priority</h2>
+            </div>
+            <p>The client ranked their key values and messages. The average rankings across both respondents are shown below. Client-focused approach ranks highest — this reinforces the "personalised approach" theme that should run throughout the entire site.</p>
+
+            <table class="values-table">
+                <thead>
+                    <tr>
+                        <th>Value / Message</th>
+                        <th>Avg. Rank</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Client-Focused Approach</td><td>1 (Highest)</td></tr>
+                    <tr><td>Quality Craftsmanship / Delivery</td><td>2</td></tr>
+                    <tr><td>Collaborative Methodology</td><td>3</td></tr>
+                    <tr><td>Innovation / Unique Solutions</td><td>4</td></tr>
+                    <tr><td>Reliability / On-Time Delivery</td><td>5</td></tr>
+                    <tr><td>Sustainability / Ethical Practices</td><td>6</td></tr>
+                </tbody>
+            </table>
+
+            <div class="highlight-box">
+                <h4>🔑 Key Messaging Hierarchy</h4>
+                <ul>
+                    <li><strong style="color: var(--egg-blue);">Primary:</strong> "Every Detail Managed." — The strapline and core brand message.</li>
+                    <li><strong style="color: var(--egg-blue);">Secondary:</strong> Personalised approach — They adapt to each client and project. Not formulaic.</li>
+                    <li><strong style="color: var(--egg-blue);">Supporting:</strong> Certainty of outcomes, reduced risk, smarter decisions, holistic expertise.</li>
+                    <li><strong style="color: var(--egg-blue);">Considered:</strong> A potential companion line: "Every Detail Managed. Every Output Certain."</li>
+                </ul>
+            </div>
+
+            <div class="sub-heading">Tone of Voice (from Brand Guidelines)</div>
+            <div class="card-grid">
+                <div class="card">
+                    <h5>Proactive</h5>
+                    <p>A doing brand that uses active language to motivate and inspire. Not passive.</p>
+                </div>
+                <div class="card">
+                    <h5>Precise</h5>
+                    <p>Gets to the point quickly. No waffle. No over-complicated language.</p>
+                </div>
+                <div class="card">
+                    <h5>Personable</h5>
+                    <p>Talks to clients like they know them. Not informal, just friendly and human.</p>
+                </div>
+                <div class="card">
+                    <h5>Bold</h5>
+                    <p>Confident — that's what happens when you understand every detail. Never cocky or patronising.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 10. Competitor Landscape -->
+    <div class="container">
+        <div class="section">
+            <div class="section-header">
+                <div class="section-num">10</div>
+                <h2 class="section-title">Competitor Landscape</h2>
+            </div>
+            <p>The following competitors were identified by the client. Their websites provide context for the industry baseline. Element's site should stand apart by being significantly more refined and intentional.</p>
+
+            <div class="competitor-grid">
+                <div class="competitor-item">Opera PM (market leaders)</div>
+                <div class="competitor-item">Blackburn (market leaders)</div>
+                <div class="competitor-item">Storey Project (boutique)</div>
+                <div class="competitor-item">Belshaw</div>
+                <div class="competitor-item">Layer PM</div>
+                <div class="competitor-item">Hart Dixon</div>
+            </div>
+
+            <div class="highlight-box">
+                <h4>🎯 Competitive Positioning</h4>
+                <p>The client's key observation: even market leaders like Opera have unclear USPs and messy messaging. Storey uses a lot of text without conveying a real point of difference. Element's opportunity is a <strong style="color: var(--egg-blue);">very strong, direct message ("Every Detail Managed")</strong> in what feels like a busy, fragmented, complicated industry. The site should cut through the noise.</p>
+            </div>
+
+            <div class="note">
+                <strong>Client note on competitors:</strong> "Even with the market leading firms like Opera, their USP/Approach feels unclear, a bit messy, and without direct messaging as to what they do. We want to avoid this."
+            </div>
+        </div>
+    </div>
+
+    <!-- 11. Design Inspiration -->
+    <div class="container">
+        <div class="section">
+            <div class="section-header">
+                <div class="section-num">11</div>
+                <h2 class="section-title">Design Inspiration References</h2>
+            </div>
+            <p>The following sites were referenced by the client across both questionnaire responses. Each brings specific qualities the designer should draw from.</p>
+
+            <div class="sub-heading">Client-Selected References</div>
+
+            <div class="inspiration-grid">
+                <div class="inspiration-card">
+                    <div class="inspiration-header">
+                        <h5>Basha-Franklin</h5>
+                        <div class="inspiration-url">basha-franklin.com</div>
+                    </div>
+                    <div class="inspiration-body">
+                        <p>Both respondents cited this. Love the animation at start plus simple landing page. Premium feel. Key reference for the page load animation and overall simplicity.</p>
+                        <div class="inspiration-tags">
+                            <span class="tag--accent tag">Top Reference</span>
+                            <span class="tag">Loading Animation</span>
+                            <span class="tag">Simple Landing</span>
+                            <span class="tag">Premium</span>
+                        </div>
+                        <a href="https://www.basha-franklin.com" target="_blank" class="inspiration-link">Visit Site →</a>
+                    </div>
+                </div>
+
+                <div class="inspiration-card">
+                    <div class="inspiration-header">
+                        <h5>Opera PM</h5>
+                        <div class="inspiration-url">operapm.co.uk</div>
+                    </div>
+                    <div class="inspiration-body">
+                        <p>Very premium feel with a simple landing page. Cited as having an aspirational quality, though their messaging is considered unclear. Reference for premium tone only.</p>
+                        <div class="inspiration-tags">
+                            <span class="tag">Premium Feel</span>
+                            <span class="tag">Simple Landing</span>
+                        </div>
+                        <a href="https://www.operapm.co.uk" target="_blank" class="inspiration-link">Visit Site →</a>
+                    </div>
+                </div>
+
+                <div class="inspiration-card">
+                    <div class="inspiration-header">
+                        <h5>Co-Re</h5>
+                        <div class="inspiration-url">co-re.co.uk</div>
+                    </div>
+                    <div class="inspiration-body">
+                        <p>Described as having a "brutalist" feel and a simplicity the client likes. Minimal, strong grid, confident use of space.</p>
+                        <div class="inspiration-tags">
+                            <span class="tag">Brutalist Simplicity</span>
+                            <span class="tag">Minimal</span>
+                            <span class="tag">Strong Grid</span>
+                        </div>
+                        <a href="https://www.co-re.co.uk" target="_blank" class="inspiration-link">Visit Site →</a>
+                    </div>
+                </div>
+
+                <div class="inspiration-card">
+                    <div class="inspiration-header">
+                        <h5>Teenage Engineering</h5>
+                        <div class="inspiration-url">teenage.engineering</div>
+                    </div>
+                    <div class="inspiration-body">
+                        <p>Cited for its design confidence and restraint. Product-focused with a distinctive approach. Reference for how restraint can feel premium.</p>
+                        <div class="inspiration-tags">
+                            <span class="tag">Design Confidence</span>
+                            <span class="tag">Restraint</span>
+                            <span class="tag">Distinctive</span>
+                        </div>
+                        <a href="https://teenage.engineering" target="_blank" class="inspiration-link">Visit Site →</a>
+                    </div>
+                </div>
+
+                <div class="inspiration-card">
+                    <div class="inspiration-header">
+                        <h5>Nosigner</h5>
+                        <div class="inspiration-url">nosigner.com/en</div>
+                    </div>
+                    <div class="inspiration-body">
+                        <p>Cited by second respondent. Clean, considered, Japanese design aesthetic. Reference for whitespace, typography, and editorial layout quality.</p>
+                        <div class="inspiration-tags">
+                            <span class="tag">Clean Design</span>
+                            <span class="tag">Whitespace</span>
+                            <span class="tag">Editorial</span>
+                        </div>
+                        <a href="https://nosigner.com/en/" target="_blank" class="inspiration-link">Visit Site →</a>
+                    </div>
+                </div>
+
+                <div class="inspiration-card">
+                    <div class="inspiration-header">
+                        <h5>Mount</h5>
+                        <div class="inspiration-url">mount.jp</div>
+                    </div>
+                    <div class="inspiration-body">
+                        <p>Cited by second respondent. Minimal Japanese design studio. Strong reference for how a consultancy can present work with restraint and elegance.</p>
+                        <div class="inspiration-tags">
+                            <span class="tag">Minimal</span>
+                            <span class="tag">Japanese Aesthetic</span>
+                            <span class="tag">Elegant</span>
+                        </div>
+                        <a href="https://mount.jp" target="_blank" class="inspiration-link">Visit Site →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sub-heading">Sites the Client Dislikes</div>
+            <div class="two-col">
+                <div class="col-card">
+                    <div class="col-title">Blackburn — blackburnltd.com</div>
+                    <div class="item">
+                        <p>"Too much going on, too many colours." Avoid: visual clutter, excessive colour use, competing visual elements.</p>
+                    </div>
+                </div>
+                <div class="col-card">
+                    <div class="col-title">Storey Project — storeyproject.com</div>
+                    <div class="item">
+                        <p>"Hate how slow this is, aesthetic quite nice though." Avoid: heavy page weight, slow loading. The visual direction is acceptable but performance is critical.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="note--red note" style="margin-top: 1.5rem;">
+                <strong>Key dislike themes:</strong> Too cluttered, too many colours, too loud. The client wants to "portray quiet confidence" and "quiet the noise, reduce complexity, and present things as simply and as easy to understand as possible."
+            </div>
+        </div>
+    </div>
+
+    <!-- 12. Client Questionnaire -->
+    <div class="container">
+        <div class="section">
+            <div class="section-header">
+                <div class="section-num">12</div>
+                <h2 class="section-title">Client Questionnaire — Full Responses</h2>
+            </div>
+            <p>Below are the raw responses from both co-founders. Two responses were received, providing complementary perspectives on the brand and design direction.</p>
+
+            <div class="sub-heading">Inspiring Websites</div>
+            <div class="qa-grid">
+                <div class="qa-item">
+                    <div class="qa-respondent">Respondent A</div>
+                    <div class="qa-value">basha-franklin.com — love the animation at start plus simple landing page. operapm.co.uk — very premium feel, simple landing page. co-re.co.uk — has a kind of brutalist (probably wrong word) feel to it and a simplicity that I like.</div>
+                </div>
+                <div class="qa-item">
+                    <div class="qa-respondent qa-respondent--b">Respondent B</div>
+                    <div class="qa-value">teenage.engineering, nosigner.com/en, mount.jp</div>
+                </div>
+            </div>
+
+            <div class="sub-heading">Websites / Design Styles They Dislike</div>
+            <div class="qa-grid">
+                <div class="qa-item">
+                    <div class="qa-respondent">Respondent A</div>
+                    <div class="qa-value">blackburnltd.com — too much going on, too many colours etc. storeyproject.com — hate how slow this is, aesthetic quite nice though.</div>
+                </div>
+                <div class="qa-item">
+                    <div class="qa-respondent qa-respondent--b">Respondent B</div>
+                    <div class="qa-value">Too cluttered, too many colours, too loud. We want to portray quiet confidence. As a business, we aim to quiet the noise, reduce complexity and present things as simply and as easy to understand as possible. If our website can communicate this and be aesthetically pleasing to show that we care about good design, that's a big win.</div>
+                </div>
+            </div>
+
+            <div class="sub-heading">Ideal Client</div>
+            <div class="qa-grid">
+                <div class="qa-item">
+                    <div class="qa-respondent">Respondent A</div>
+                    <div class="qa-value">We work with large funds and family offices in commercial property sector. Projects range in value from £500k - £8m. People making decisions; university educated, career driven, in roles for 6+ years typically. Exciting projects; those that are architecturally curated plus holistic building refurbishments that require strategic planning.</div>
+                </div>
+                <div class="qa-item">
+                    <div class="qa-respondent qa-respondent--b">Respondent B</div>
+                    <div class="qa-value">Small, disruptive, non-traditional. Fast paced, innovative and to-the-point. Design-led.</div>
+                </div>
+            </div>
+
+            <div class="sub-heading">Primary CTA — When Someone Lands on Your Site</div>
+            <div class="qa-grid">
+                <div class="qa-item">
+                    <div class="qa-respondent">Respondent A</div>
+                    <div class="qa-value">Get in touch, View our projects/portfolio, Learn about our process.</div>
+                </div>
+                <div class="qa-item">
+                    <div class="qa-respondent qa-respondent--b">Respondent B</div>
+                    <div class="qa-value">Get in touch, Learn about our process, Sign up for a newsletter/updates.</div>
+                </div>
+            </div>
+
+            <div class="sub-heading">What They Love About Current Branding</div>
+            <div class="qa-grid">
+                <div class="qa-item">
+                    <div class="qa-respondent">Respondent A</div>
+                    <div class="qa-value">Logo, Strapline: EVERY DETAIL MANAGED, Colours.</div>
+                </div>
+                <div class="qa-item">
+                    <div class="qa-respondent qa-respondent--b">Respondent B</div>
+                    <div class="qa-value">Keeping things simple but sharp. The best bits of our branding look good but are fundamentally there to perform a function. At our best, we're simplifying the complex and not adding unnecessary noise.</div>
+                </div>
+            </div>
+
+            <div class="sub-heading">Brand Personality</div>
+            <div class="qa-grid">
+                <div class="qa-item">
+                    <div class="qa-respondent">Respondent A</div>
+                    <div class="qa-value">Approachable, Professional, Reliable, Detail-Oriented, Modern</div>
+                </div>
+                <div class="qa-item">
+                    <div class="qa-respondent qa-respondent--b">Respondent B</div>
+                    <div class="qa-value">Approachable, Professional, Creative, Innovative, Detail-Oriented</div>
+                </div>
+            </div>
+
+            <div class="sub-heading">Target Feeling After 30 Seconds on Site</div>
+            <div class="qa-grid">
+                <div class="qa-item">
+                    <div class="qa-respondent">Respondent A</div>
+                    <div class="qa-value">Confident you can deliver.</div>
+                </div>
+                <div class="qa-item">
+                    <div class="qa-respondent qa-respondent--b">Respondent B</div>
+                    <div class="qa-value">Excited to work with you.</div>
+                </div>
+            </div>
+
+            <div class="sub-heading">Services to Highlight / Be Known For</div>
+            <div class="qa-grid">
+                <div class="qa-item">
+                    <div class="qa-respondent">Respondent A</div>
+                    <div class="qa-value">Building Consultancy and Project Management. We're bound by what we've delivered on up to this point somewhat. Ideally we'll grow to work on variety of different assets but initially we're working very much on commercial - Cat A/A+/B projects.</div>
+                </div>
+                <div class="qa-item">
+                    <div class="qa-respondent qa-respondent--b">Respondent B</div>
+                    <div class="qa-value">Project management. Being able to go all the way across the property lifecycle from pre-acquisition to in-use. We're not just a project management company and we're capable of much more than just fitting out an office shell. Because of our background, we can add a lot of value to clients. We understand buildings holistically and we also understand landlord/tenant matters deeply, which helps.</div>
+                </div>
+            </div>
+
+            <div class="sub-heading">What Makes Element Different</div>
+            <div class="qa-grid">
+                <div class="qa-item">
+                    <div class="qa-respondent">Respondent A</div>
+                    <div class="qa-value">Every Detail Managed: the concept is about getting into the detail on projects and taking control to deliver certainty of outputs.</div>
+                </div>
+                <div class="qa-item">
+                    <div class="qa-respondent qa-respondent--b">Respondent B</div>
+                    <div class="qa-value">We're all about the detail. The smallest things can and do have the biggest impact. Our ethos is 'every detail managed'. Simplification of the complex.</div>
+                </div>
+            </div>
+
+            <div class="sub-heading">Note on Process / Approach</div>
+            <div class="qa-grid">
+                <div class="qa-item">
+                    <div class="qa-respondent">Respondent A</div>
+                    <div class="qa-value">I don't think we need to go as far as Layer have — I don't mind their attempt to define a process but the nature of our advice and approach isn't a formulaic step by step thing — it's very much a malleable application of technical expertise to a process; we adapt to each client and each project to find a way to deliver the certainty that is required.</div>
+                </div>
+            </div>
+
+            <div class="sub-heading">Competitors</div>
+            <div class="qa-grid">
+                <div class="qa-item">
+                    <div class="qa-respondent">Respondent A</div>
+                    <div class="qa-value">Opera — very premium feel, market leaders. Blackburn — don't like their brand but they are considered market leaders. Storey — really nice brand, considered leading boutique PM firm. Where we can stand out: a very strong message (Every Detail Managed) in what can feel like a busy, fragmented, complicated industry. I actually wonder if there's room for a second statement below like: Every Detail Managed. Every Output Certain.</div>
+                </div>
+                <div class="qa-item">
+                    <div class="qa-respondent qa-respondent--b">Respondent B</div>
+                    <div class="qa-value">Belshaw, Layer PM, Storey Project, Hart Dixon.</div>
+                </div>
+            </div>
+
+            <div class="sub-heading">Features & Integrations</div>
+            <div class="qa-grid">
+                <div class="qa-item">
+                    <div class="qa-respondent qa-respondent--b">Respondent B</div>
+                    <div class="qa-value">Email marketing integration (e.g., Mailchimp, Klaviyo), Newsletter signup, Project enquiry form, Social media feeds, Testimonials / reviews section, Case study filtering will become important once we've developed a bigger catalog of case studies.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 13. Deliverables -->
+    <div class="container">
+        <div class="section">
+            <div class="section-header">
+                <div class="section-num">13</div>
+                <h2 class="section-title">Design Deliverables</h2>
+            </div>
+            <p>The following deliverables are required for this phase, ahead of the client call next Thursday. All work should be delivered as Figma files.</p>
+
+            <div class="scope-card">
+                <div class="scope-header">
+                    <div class="scope-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="scope-title">Required Deliverables</h3>
+                        <p class="scope-subtitle">All items to be completed before Thursday client call</p>
+                    </div>
+                </div>
+                <div class="deliverables">
+                    <div class="deliverable">
+                        <div class="deliverable-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span><strong>Moodboard(s)</strong> — Visual direction, tone, colour usage, typography, imagery, and UI references. Establish the "quiet confidence" direction for sign-off.</span>
+                    </div>
+                    <div class="deliverable">
+                        <div class="deliverable-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span><strong>Page Load Design</strong> — The branded loading animation showing logo and tagline on a full-colour background, with annotation of the reveal transition.</span>
+                    </div>
+                    <div class="deliverable">
+                        <div class="deliverable-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span><strong>Home Page Mockup</strong> — Full desktop design including hero, about blurb, 8-block project grid, testimonials, logo carousel, and footer with GSAP colour change.</span>
+                    </div>
+                    <div class="deliverable">
+                        <div class="deliverable-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span><strong>Project Archive Mockup</strong> — Filterable grid of projects with clean cards, project imagery, name, sector, and type.</span>
+                    </div>
+                    <div class="deliverable">
+                        <div class="deliverable-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span><strong>Single Project Page Mockup</strong> — Case study layout with hero image, project details, overview copy, image gallery, and related projects.</span>
+                    </div>
+                    <div class="deliverable">
+                        <div class="deliverable-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span><strong>About Page Mockup</strong> — Story, approach, values, team. Text-driven with supporting photography.</span>
+                    </div>
+                    <div class="deliverable">
+                        <div class="deliverable-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <span><strong>Animation Annotations</strong> — Notes on all intended interactions: page load sequence, scroll behaviours, hover states, footer colour change.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>Scope note:</strong> This phase is mockups only — no component library or mobile designs required yet. Desktop resolution (1440px). The goal is to present a clear visual direction to the client on Thursday.
+            </div>
+        </div>
+    </div>
+
+    <!-- 14. Design Guidelines -->
+    <div class="container">
+        <div class="section">
+            <div class="section-header">
+                <div class="section-num">14</div>
+                <h2 class="section-title">Design Guidelines</h2>
+            </div>
+            <p>Follow these guidelines to ensure the mockups align with the project vision and are ready for client presentation.</p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4>Figma Setup</h4>
+                    <ul class="feature-list">
+                        <li>Design at 1440px desktop width</li>
+                        <li>Use the dummy content provided — avoid lorem ipsum</li>
+                        <li>Name all layers clearly for future handoff</li>
+                        <li>Use placeholder photography that reflects the image direction</li>
+                        <li>Include a notes layer or Figma comments for animation annotations</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4>Visual Rules</h4>
+                    <ul class="feature-list">
+                        <li>Less is more — if an element doesn't earn its place, remove it</li>
+                        <li>Predominantly light/neutral backgrounds with subtle colour accents</li>
+                        <li>Typography-led design — let text do the work</li>
+                        <li>Generous whitespace throughout</li>
+                        <li>Full brand colour used only on the page load; hints elsewhere</li>
+                        <li>Footer dark section with GSAP colour-change transition</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4>Things to Avoid</h4>
+                    <ul class="feature-list">
+                        <li>Too many colours — don't use the full brand palette at once</li>
+                        <li>Cluttered layouts — every section should feel spacious</li>
+                        <li>Loud or competing visual elements</li>
+                        <li>Generic consultancy aesthetics — this should feel distinctive</li>
+                        <li>Excessive imagery — text should lead, photography supports</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4>Things to Embrace</h4>
+                    <ul class="feature-list">
+                        <li>Quiet confidence and restraint</li>
+                        <li>Interesting, asymmetric grid layouts for the project showcase</li>
+                        <li>Strong typographic hierarchy</li>
+                        <li>Architectural precision in spacing and alignment</li>
+                        <li>Moments of subtle delight — a soft hover, a considered transition</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight-box" style="margin-top: 1rem;">
+                <h4>🔑 The Brief in One Sentence</h4>
+                <p>Design a website that feels like walking into a perfectly composed space — where nothing is accidental, everything is considered, and the confidence speaks for itself. <strong style="color: var(--egg-blue);">Every detail managed.</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p class="footer-message">This brief contains everything needed to begin the design phase. Questions or clarifications should be directed to Autara Studio before starting work.</p>
+
+        <div class="footer-divider"></div>
+
+        <div class="contact-grid">
+            <div class="contact-card">
+                <div class="contact-label">Email</div>
+                <div class="contact-value"><a href="mailto:matt@autara.studio">matt@autara.studio</a></div>
+            </div>
+            <div class="contact-card">
+                <div class="contact-label">Deadline</div>
+                <div class="contact-value">Before Thursday Client Call</div>
+            </div>
+        </div>
+
+        <div class="footer-brand">
+            <div class="footer-logo">Autara Studio</div>
+            <div class="footer-link">Design Brief — Element Building Consultancy — February 2026</div>
+        </div>
+    </div>
+
+</body>
+</html>
